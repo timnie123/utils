@@ -39,7 +39,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         // 全局scss變量
-        data: '@import "~@/assets/css/variables.scss";',
+        prependData: '@import "~@/assets/css/variables.scss";',
       },
     },
   },
