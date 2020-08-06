@@ -23,7 +23,7 @@ module.exports = {
       .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin);
   }, */
   // 压缩图片
-  chainWebpack: (config) => {
+  /* chainWebpack: (config) => {
     config.module
       .rule('images')
       .use('image-webpack-loader')
@@ -32,7 +32,7 @@ module.exports = {
         bypassOnDebug: true,
       })
       .end();
-  },
+  }, */
   productionSourceMap: false,
   // css相关配置
   css: {
@@ -51,7 +51,7 @@ module.exports = {
     open: false, // 配置自动启动浏览器
     host: 'localhost',
     port: 8085, // 端口号
-    proxy: 'http://localhost:8080/', // 代理
+    // proxy: 'http://localhost:8080/', // 代理
     https: false,
     hotOnly: false,
   },
