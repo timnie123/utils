@@ -5,7 +5,7 @@ const moment = require('moment');
 const fileName = moment().format('YYYYMMDD');
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/utils/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   // 输出文件目录
   outputDir: `dist/${fileName}`,
   // eslint-loader 是否在保存的时候检查
@@ -49,9 +49,13 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: false, // 配置自动启动浏览器
-    host: 'localhost',
+    host: '192.168.0.102',
     port: 8085, // 端口号
-    // proxy: 'http://localhost:8080/', // 代理
+    proxy: {
+      '/api': {
+        target: 'http://localhost:2333',
+      },
+    }, // 代理
     https: false,
     hotOnly: false,
   },
