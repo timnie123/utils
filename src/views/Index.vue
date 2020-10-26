@@ -20,6 +20,22 @@
               </a-card>
             </router-link>
           </a-col>
+          <a-col class="gutter-row" :span="6">
+            <router-link :to="{name:'Hot'}">
+              <a-card hoverable style="width: 100%;height: 336px">
+                <img
+                  slot="cover"
+                  alt="example"
+                  :src="downLoadSrc"
+                />
+                <a-card-meta title="热搜">
+                  <template slot="description">
+                    热搜
+                  </template>
+                </a-card-meta>
+              </a-card>
+            </router-link>
+          </a-col>
         </a-row>
       </a-layout-content>
     </a-layout>

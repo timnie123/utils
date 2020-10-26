@@ -3,10 +3,10 @@ import $axios from '@/config/axios';
 export default async function apiPictureDownload(params) {
   return $axios.get(`api/pictureDownload?type=${params.type}&value=${params.value}&count=${params.count}`)
     .then((res) => {
-      if (res.status === 200) {
-        return res.data;
+      if (res.data.code === 200) {
+        return res.data.data;
       }
-      return res.status;
+      return res.data;
     })
     .catch();
 }

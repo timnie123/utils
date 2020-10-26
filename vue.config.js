@@ -49,13 +49,8 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: false, // 配置自动启动浏览器
-    host: '192.168.0.102',
+    host: '192.168.0.101',
     port: 8085, // 端口号
-    proxy: {
-      '/api': {
-        target: 'http://localhost:2333',
-      },
-    }, // 代理
     https: false,
     hotOnly: false,
   },

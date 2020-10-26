@@ -49,6 +49,7 @@
 <script>
 import Vue from 'vue';
 import apiPictureDownload from '@/api/pictureDownload';
+// import io from 'socket.io-client';
 import {
   FormModel, Form, Radio, Button, Input,
 } from 'ant-design-vue';
@@ -84,9 +85,16 @@ export default {
         value: this.form.name,
         count,
       };
+      debugger;
+      const res = await apiPictureDownload(data).catch((error) => error.data);
 
-      const res = await apiPictureDownload(data);
-      console.log(res);
+      if (res.error) {
+        this.$message.error(res.error);
+      }
+      console.log(res.path);
+      /*
+      window.open(`api/pictureDownload?type=${data.type}&value=${data.value}&count=${data.count}`);
+*/
     },
   },
 };

@@ -11,9 +11,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 const $axios = axios.create({
-  /* baseURL: process.env.NODE_ENV === 'production'
-    ? `${window.location.protocol}//${window.location.host}/`
-    : 'http://localhost:2333/', */
+  baseURL: 'http://192.168.0.101:2333/',
 
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
@@ -41,16 +39,10 @@ $axios.interceptors.request.use(
 // Add a response interceptor
 $axios.interceptors.response.use(
   (response) => {
-    if (response.status) {
-      if (response.status !== 200) {
-        /* Notification.error({
-          title: '錯誤提示',
-          message: response.data.message || '數據請求失敗',
-          position: 'bottom-right',
-        }); */
-      }
+    if (response.data.code !== 200) {
+      return Promise.reject(response.message);
     }
-    return response;
+    return response.data;
   },
   (error) => Promise.reject(error),
 );
