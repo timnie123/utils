@@ -1,6 +1,6 @@
 <template>
   <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
-    <a-tabs default-active-key="1" size="large">
+    <a-tabs default-active-key="1" size="large" @change="tabChange">
       <a-tab-pane key="1">
         <span slot="tab">
           <span class="exmoo-icon icon"></span>
@@ -35,6 +35,11 @@ export default {
   components: {
     Exmoo,
     HK01,
+  },
+  methods: {
+    tabChange(key) {
+      console.log(key);
+    },
   },
 };
 </script>

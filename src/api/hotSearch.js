@@ -20,3 +20,13 @@ export async function apiPutHotSearch() {
     })
     .catch();
 }
+export async function apiGetHotArticleExmoo(num) {
+  return $axios.get(`api/hotArticle/exmoo/news?currentPage=${num}`)
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}

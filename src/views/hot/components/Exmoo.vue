@@ -1,6 +1,7 @@
 <template>
     <div>
-      <a-table :columns="columns" :data-source="data">
+      <a-table :columns="columns" :data-source="info" :pagination="pagination" @change="pageChange">
+        <a :href="`${record.url}`" slot="mainTitle" slot-scope="text, record">{{ text }}</a>
         <span slot="Image" slot-scope="Image">
           <img class="news-image" :src="Image">
         </span>
@@ -13,6 +14,7 @@ import Vue from 'vue';
 import {
   Table,
 } from 'ant-design-vue';
+import { apiGetHotArticleExmoo } from '@/api/hotSearch';
 
 Vue.use(Table);
 export default {
@@ -24,6 +26,7 @@ export default {
           title: '主标题',
           dataIndex: 'mainTitle',
           key: 'mainTitle',
+          scopedSlots: { customRender: 'mainTitle' },
         },
         {
           title: '副标题',
@@ -41,21 +44,60 @@ export default {
           key: 'createTime',
         },
         {
-          title: '缩略图',
+          title: '瀏覽量',
+          dataIndex: 'views',
+          key: 'views',
+        },
+        {
+          title: '封面图',
           dataIndex: 'imgUrl',
           key: 'imgUrl',
           scopedSlots: { customRender: 'Image' },
         },
       ],
-      data: [{
-        key: '1',
-        mainTitle: '傳播力更強 來源不明',
-        subTitle: '挪威現新冠病毒新變種',
-        type: '即时新闻',
-        createTime: '2020-10-26',
-        imgUrl: 'https://statics.exmoo.com/uploads/thumbnail/hotarticle/2020-10-26/bkFMqTI7cek77tuVn4gZvkkl77mndYB3LaAtIHJv_5_4_500X400.jpg',
-      }],
+      info: [],
+      pagination: {
+        total: 50,
+        pageSize: 20,
+      },
     };
+  },
+  mounted() {
+    this.getExmoo(1);
+  },
+  methods: {
+    pageChange(page) {
+      this.getExmoo(page.current);
+    },
+    async getExmoo(num) {
+      const data = await apiGetHotArticleExmoo(num - 1);
+      this.pagination.total = data.pager.total;
+      this.info = [];
+      for (let i = 0; i < data.info.length; i++) {
+        let type = '';
+        switch (data.info[i].type) {
+          case 'news':
+            type = '即時新聞';
+            break;
+          case 'life':
+            type = '生活資訊';
+            break;
+          default:
+            type = '即時新聞';
+            break;
+        }
+        this.info.push({
+          key: i,
+          mainTitle: data.info[i].mainTitle || '無標題',
+          subTitle: data.info[i].subTitle || '無標題',
+          type,
+          createTime: new Date(Number(data.info[i].createTime)).toLocaleDateString(),
+          imgUrl: data.info[i].imgUrl,
+          url: data.info[i].url,
+          views: data.info[i].views,
+        });
+      }
+    },
   },
 };
 </script>
