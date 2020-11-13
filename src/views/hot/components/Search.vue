@@ -1,5 +1,6 @@
 <template>
-  <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
+  <a-spin :spinning="spinning" tip="數據抓取中，請稍後...">
+    <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
     <div class="tips">
       <div>可点此按钮更新最新数据
         <a-button type="primary" @click="refresh">
@@ -36,18 +37,20 @@
       </div>
     </div>
   </a-layout-content>
+  </a-spin>
 </template>
 
 <script>
 import Vue from 'vue';
 import { apiPutHotSearch, apiGetHotSearch } from '@/api/hotSearch';
 import {
-  Layout, Card, Button,
+  Layout, Card, Button, Spin,
 } from 'ant-design-vue';
 
 Vue.use(Button);
 Vue.use(Layout);
 Vue.use(Card);
+Vue.use(Spin);
 export default {
   name: 'Search',
   data() {
@@ -58,6 +61,7 @@ export default {
         weiboTopic: [],
         toutiaoSearch: [],
       },
+      spinning: false,
     };
   },
   async created() {
@@ -66,8 +70,11 @@ export default {
   },
   methods: {
     async refresh() {
-      const data = await apiPutHotSearch().catch((err) => err);
+      this.spinning = true;
+      await apiPutHotSearch().catch((err) => err);
+      const data = await apiGetHotSearch().catch((err) => err);
       this.init(data);
+      this.spinning = false;
     },
     init(data) {
       this.list.weiboSearch = data.filter((item) => item.source === 'weiboSearch');
@@ -80,6 +87,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .spin-content {
+    border: 1px solid #91d5ff;
+    background-color: #e6f7ff;
+    padding: 30px;
+  }
   #components-layout-demo-fixed .logo {
     width: 120px;
     height: 31px;
@@ -95,6 +107,7 @@ export default {
     border-radius: 4px;
     color: #00b0ff;
     border-left: 5px solid #00b0ff;
+    background-color: #ffffff;
   }
   .hot-content {
     display: flex;

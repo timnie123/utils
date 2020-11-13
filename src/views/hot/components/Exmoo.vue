@@ -1,22 +1,31 @@
 <template>
-    <div>
+  <a-spin :spinning="spinning" tip="數據抓取中，請稍後...">
+      <div class="tips">
+        <div>可点此按钮更新最新数据
+          <a-button type="primary" @click="refresh">
+            刷新
+          </a-button>
+        </div>
+      </div>
       <a-table :columns="columns" :data-source="info" :pagination="pagination" @change="pageChange">
-        <a :href="`${record.url}`" slot="mainTitle" slot-scope="text, record">{{ text }}</a>
+        <a :href="`${record.url}`" target="_blank"
+           slot="mainTitle" slot-scope="text, record">{{ text }}</a>
         <span slot="Image" slot-scope="Image">
           <img class="news-image" :src="Image">
         </span>
       </a-table>
-    </div>
+  </a-spin>
 </template>
 
 <script>
 import Vue from 'vue';
 import {
-  Table,
+  Table, Spin,
 } from 'ant-design-vue';
-import { apiGetHotArticleExmoo } from '@/api/hotSearch';
+import { apiGetHotArticleExmoo, apiPutHotArticleExmooLife, apiPutHotArticleExmooNews } from '@/api/hotSearch';
 
 Vue.use(Table);
+Vue.use(Spin);
 export default {
   name: 'Exmoo',
   data() {
@@ -60,6 +69,7 @@ export default {
         total: 50,
         pageSize: 20,
       },
+      spinning: false,
     };
   },
   mounted() {
@@ -98,13 +108,35 @@ export default {
         });
       }
     },
+    async refresh() {
+      this.spinning = true;
+      await apiPutHotArticleExmooNews().catch((err) => err);
+      await apiPutHotArticleExmooLife().catch((err) => err);
+      this.getExmoo(1);
+      this.spinning = false;
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
+.spin-content {
+  border: 1px solid #91d5ff;
+  background-color: #e6f7ff;
+  padding: 30px;
+}
 .news-image {
   width: 150px;
   height: 120px;
+}
+.tips {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 4px;
+  color: #00b0ff;
+  border-left: 5px solid #00b0ff;
+  background-color: #ffffff;
 }
 </style>
