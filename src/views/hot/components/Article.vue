@@ -15,6 +15,13 @@
         </span>
         <HK01 />
       </a-tab-pane>
+      <a-tab-pane key="3">
+        <span slot="tab">
+          <span class="fb-icon icon"></span>
+          FaceBook
+        </span>
+        <FaceBook />
+      </a-tab-pane>
     </a-tabs>
   </a-layout-content>
 </template>
@@ -27,6 +34,7 @@ import {
 } from 'ant-design-vue';
 import Exmoo from './Exmoo.vue';
 import HK01 from './HK01.vue';
+import FaceBook from './FaceBook.vue';
 
 Vue.use(Tabs);
 Vue.use(Layout);
@@ -35,6 +43,7 @@ export default {
   components: {
     Exmoo,
     HK01,
+    FaceBook,
   },
   methods: {
     tabChange(key) {
@@ -59,5 +68,8 @@ export default {
   }
   .exmoo-icon {
     background-image: url("../../../assets/img/exmoo.jpg");
+  }
+  .fb-icon {
+    background-image: url("../../../assets/img/fb.png");
   }
 </style>

@@ -80,3 +80,33 @@ export async function apiPutHotArticleHkLife() {
     })
     .catch();
 }
+export async function apiGetHotArticleFB(num) {
+  return $axios.get(`api/hotArticle/fb/post?currentPage=${num}`)
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotArticleFBTripAddict() {
+  return $axios.get('api/hotArticle/fb/refreshTripAddict')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotArticleFBUMagazineHK() {
+  return $axios.get('api/hotArticle/fb/refreshUMagazineHK')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
