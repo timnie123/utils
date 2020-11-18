@@ -10,8 +10,58 @@ export async function apiGetHotSearch() {
     })
     .catch();
 }
-export async function apiPutHotSearch() {
-  return $axios.get('api/hotSearch/refresh')
+export async function apiPutHotSearchWeibo() {
+  return $axios.get('api/hotSearch/refreshWeibo')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotSearchToutiao() {
+  return $axios.get('api/hotSearch/refreshToutiao')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotSearchWeiboTopic() {
+  return $axios.get('api/hotSearch/refreshWeiboTopic')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotSearchWeiboNews() {
+  return $axios.get('api/hotSearch/refreshWeiboNews')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotSearchBaidu() {
+  return $axios.get('api/hotSearch/refreshBaidu')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotSearchdoubanTopic() {
+  return $axios.get('api/hotSearch/refreshdoubanTopic')
     .then((res) => {
       if (res.code === 200) {
         return res.data;

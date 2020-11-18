@@ -34,6 +34,18 @@
             <a :href="item.url" target="_blank">{{index + 1}}.{{item.title}}</a>
           </p>
         </a-card>
+        <a-card title="百度热搜" class="hot-card">
+          <a class="baidu" slot="extra" href="http://top.baidu.com/buzz?b=1&fr=topindex" target="_blank"></a>
+          <p v-for="(item, index) in list.baiduSearch" :key="index">
+            <a :href="item.url" target="_blank">{{index + 1}}.{{item.title}}</a>
+          </p>
+        </a-card>
+        <a-card title="豆瓣热门话题" class="hot-card">
+          <a class="douban" slot="extra" href="https://www.douban.com/gallery/" target="_blank"></a>
+          <p v-for="(item, index) in list.doubanTopic" :key="index">
+            <a :href="item.url" target="_blank">{{index + 1}}.{{item.title}}</a>
+          </p>
+        </a-card>
       </div>
     </div>
   </a-layout-content>
@@ -42,7 +54,15 @@
 
 <script>
 import Vue from 'vue';
-import { apiPutHotSearch, apiGetHotSearch } from '@/api/hotSearch';
+import {
+  apiPutHotSearchWeibo,
+  apiPutHotSearchToutiao,
+  apiPutHotSearchWeiboTopic,
+  apiPutHotSearchWeiboNews,
+  apiPutHotSearchBaidu,
+  apiGetHotSearch,
+  apiPutHotSearchdoubanTopic,
+} from '@/api/hotSearch';
 import {
   Layout, Card, Button, Spin,
 } from 'ant-design-vue';
@@ -60,6 +80,8 @@ export default {
         weiboNews: [],
         weiboTopic: [],
         toutiaoSearch: [],
+        baiduSearch: [],
+        doubanTopic: [],
       },
       spinning: false,
     };
@@ -71,7 +93,12 @@ export default {
   methods: {
     async refresh() {
       this.spinning = true;
-      await apiPutHotSearch().catch((err) => err);
+      await apiPutHotSearchWeibo().catch((err) => err);
+      await apiPutHotSearchToutiao().catch((err) => err);
+      await apiPutHotSearchWeiboTopic().catch((err) => err);
+      await apiPutHotSearchWeiboNews().catch((err) => err);
+      await apiPutHotSearchBaidu().catch((err) => err);
+      await apiPutHotSearchdoubanTopic().catch((err) => err);
       const data = await apiGetHotSearch().catch((err) => err);
       this.init(data);
       this.spinning = false;
@@ -81,6 +108,8 @@ export default {
       this.list.weiboNews = data.filter((item) => item.source === 'weiboNews');
       this.list.weiboTopic = data.filter((item) => item.source === 'weiboTopic');
       this.list.toutiaoSearch = data.filter((item) => item.source === 'toutiaoSearch');
+      this.list.baiduSearch = data.filter((item) => item.source === 'baidu');
+      this.list.doubanTopic = data.filter((item) => item.source === 'doubanTopic');
     },
   },
 };
@@ -131,6 +160,22 @@ export default {
       width: 32px;
       height: 26px;
       background-image: url('../../../assets/img/toutiao.jpg');
+      background-size: 100% 100%;
+    }
+    .baidu {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 32px;
+      height: 26px;
+      background-image: url('../../../assets/img/baidu.png');
+      background-size: 100% 100%;
+    }
+    .douban {
+      box-sizing: border-box;
+      display: inline-block;
+      width: 32px;
+      height: 26px;
+      background-image: url('../../../assets/img/douban.jpg');
       background-size: 100% 100%;
     }
   }
