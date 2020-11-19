@@ -55,6 +55,7 @@ export default {
 <style scoped lang="scss">
   .ant-layout-header {
     background-color: #00b0ff;
+    z-index: 2;
   }
   .ant-menu-dark {
     background-color: #00b0ff;

@@ -1,25 +1,9 @@
 <template>
   <div id="components-layout-demo-basic">
     <a-layout>
-      <a-layout-header>快乐工具屋</a-layout-header>
+      <a-layout-header>澳門組工具庫</a-layout-header>
       <a-layout-content>
         <a-row :gutter="16">
-          <a-col class="gutter-row" :span="6">
-            <router-link :to="{name:'PictureDownload'}">
-              <a-card hoverable style="width: 100%;height: 336px">
-                <img
-                  slot="cover"
-                  alt="example"
-                  :src="downLoadSrc"
-                />
-                <a-card-meta title="批量图片下载工具">
-                  <template slot="description">
-                    一款可以在网页上批量下载图片的工具
-                  </template>
-                </a-card-meta>
-              </a-card>
-            </router-link>
-          </a-col>
           <a-col class="gutter-row" :span="6">
             <router-link :to="{name:'Hot'}">
               <a-card hoverable style="width: 100%;height: 336px">

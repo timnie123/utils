@@ -22,6 +22,13 @@
         </span>
         <FaceBook />
       </a-tab-pane>
+      <a-tab-pane key="4">
+        <span slot="tab">
+          <span class="ctm-icon icon"></span>
+          CTM
+        </span>
+        <CTM />
+      </a-tab-pane>
     </a-tabs>
   </a-layout-content>
 </template>
@@ -35,6 +42,7 @@ import {
 import Exmoo from './Exmoo.vue';
 import HK01 from './HK01.vue';
 import FaceBook from './FaceBook.vue';
+import CTM from './CTM.vue';
 
 Vue.use(Tabs);
 Vue.use(Layout);
@@ -44,6 +52,7 @@ export default {
     Exmoo,
     HK01,
     FaceBook,
+    CTM,
   },
   methods: {
     tabChange(key) {
@@ -71,5 +80,14 @@ export default {
   }
   .fb-icon {
     background-image: url("../../../assets/img/fb.png");
+  }
+  .ctm-icon {
+    background-image: url("../../../assets/img/ctm.png");
+  }
+  ::v-deep .ant-tabs-tabpane{
+    background-color: #f0f2f5;
+  }
+  ::v-deep .ant-table-body{
+    background-color: #ffffff;
   }
 </style>

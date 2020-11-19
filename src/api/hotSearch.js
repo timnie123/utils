@@ -160,3 +160,23 @@ export async function apiPutHotArticleFBUMagazineHK() {
     })
     .catch();
 }
+export async function apiGetHotArticleCTM(num) {
+  return $axios.get(`api/hotArticle/ctm?currentPage=${num}`)
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
+export async function apiPutHotArticleCTMActivity() {
+  return $axios.get('api/hotArticle/ctm/refreshCtmActivity')
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
