@@ -11,7 +11,7 @@ import axios from 'axios';
 import qs from 'qs';
 
 const $axios = axios.create({
-  baseURL: 'http://192.168.0.101:2333/',
+  baseURL: 'http://timnie.cn/',
 
   headers: {
     'Content-Type': 'application/json;charset=utf-8',
