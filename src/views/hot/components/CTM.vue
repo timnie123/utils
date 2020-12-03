@@ -1,10 +1,18 @@
 <template>
   <a-spin :spinning="spinning" tip="數據抓取中，請稍後...">
     <div class="tips">
+      <div>
+        數據每天<span style="color:#f50057">8:30</span>和
+        <span style="color:#f50057">18:00</span>自動更新
+      </div>
+      <div>
+        上一次數據更新時間：{{ $moment(Number(this.updateTime)).format('YYYY/MM/DD HH:mm:ss') }}
+      </div>
       <div>可点此按钮更新最新数据
         <a-button type="primary" @click="refresh">
           刷新
         </a-button>
+        數據抓取過程會比較久，請耐心等待
       </div>
     </div>
     <a-table :columns="columns" :data-source="info" :pagination="pagination" @change="pageChange">
@@ -65,6 +73,7 @@ export default {
         pageSize: 20,
       },
       spinning: false,
+      updateTime: '',
     };
   },
   mounted() {
@@ -79,6 +88,9 @@ export default {
       this.pagination.total = data.pager.total;
       this.info = [];
       for (let i = 0; i < data.info.length; i++) {
+        if (i === 0) {
+          this.updateTime = data.info[i].update_time;
+        }
         const imageUrl = data.info[i].carver.substring(data.info[i].carver.indexOf('?') + 5).split('&');
         const encodeUrl = decodeURIComponent(imageUrl[0]);
         this.info.push({

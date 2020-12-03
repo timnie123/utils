@@ -2,12 +2,20 @@
   <a-spin :spinning="spinning" tip="數據抓取中，請稍後...">
     <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' }">
     <div class="tips">
-      <div>可点此按钮更新最新数据
-        <a-button type="primary" @click="refresh">
-          刷新
-        </a-button>
+        <div>
+          數據每天<span style="color:#f50057">8:30</span>和
+          <span style="color:#f50057">18:00</span>自動更新
+        </div>
+        <div>
+          上一次數據更新時間：{{ $moment(Number(this.updateTime)).format('YYYY/MM/DD HH:mm:ss') }}
+        </div>
+        <div>可点此按钮更新最新数据
+          <a-button type="primary" @click="refresh">
+            刷新
+          </a-button>
+          數據抓取過程會比較久，請耐心等待
+        </div>
       </div>
-    </div>
     <div :style="{ background: '#fff', padding: '24px', minHeight: '680px' }">
       <div class="hot-content">
         <a-card title="热搜" class="hot-card">
@@ -84,6 +92,7 @@ export default {
         doubanTopic: [],
       },
       spinning: false,
+      updateTime: '',
     };
   },
   async created() {
@@ -104,6 +113,7 @@ export default {
       this.spinning = false;
     },
     init(data) {
+      this.updateTime = data[0].updateTime;
       this.list.weiboSearch = data.filter((item) => item.source === 'weiboSearch');
       this.list.weiboNews = data.filter((item) => item.source === 'weiboNews');
       this.list.weiboTopic = data.filter((item) => item.source === 'weiboTopic');

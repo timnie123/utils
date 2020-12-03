@@ -1,13 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const webpack = require('webpack');
-const moment = require('moment');
 
-const fileName = moment().format('YYYYMMDD');
 module.exports = {
   // 基本路径
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   // 输出文件目录
-  outputDir: `dist/${fileName}`,
+  outputDir: 'dist/',
   // eslint-loader 是否在保存的时候检查
   lintOnSave: true,
   // webpack配置
@@ -28,7 +26,7 @@ module.exports = {
       .rule('images')
       .use('image-webpack-loader')
       .loader('image-webpack-loader')
-      .options({
+      .options({x
         bypassOnDebug: true,
       })
       .end();
@@ -49,7 +47,7 @@ module.exports = {
   // webpack-dev-server 相关配置
   devServer: {
     open: false, // 配置自动启动浏览器
-    host: '192.168.0.101',
+    host: '192.168.5.31',
     port: 8085, // 端口号
     https: false,
     hotOnly: false,
