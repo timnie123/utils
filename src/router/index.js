@@ -5,6 +5,7 @@ const Index = () => import('@/views/Index');
 const Empty = () => import('@/views/Empty');
 const PictureDownload = () => import('@/views/picture-download/PictureDownload');
 const Hot = () => import('@/views/hot/Hot');
+const JDCrawlers = () => import('@/views/jdCrawlers/JDCrawlers');
 Vue.use(VueRouter);
 
 const routes = [
@@ -30,6 +31,15 @@ const routes = [
     path: '/hot',
     name: 'Hot',
     component: Hot,
+    meta: {
+      // requireAuth: true, // 是否需要登陸
+      title: 'tools',
+    },
+  },
+  {
+    path: '/jd-crawlers',
+    name: 'JDCrawlers',
+    component: JDCrawlers,
     meta: {
       // requireAuth: true, // 是否需要登陸
       title: 'tools',
