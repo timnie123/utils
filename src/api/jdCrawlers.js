@@ -10,3 +10,13 @@ export async function apiPutCrawlersFile(file) {
     })
     .catch();
 }
+export async function apiDownLoadFile(name) {
+  return $axios.get(`api/downloadFile/${name}`)
+    .then((res) => {
+      if (res.code === 200) {
+        return res.data;
+      }
+      return 'error';
+    })
+    .catch();
+}
