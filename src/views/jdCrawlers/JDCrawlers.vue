@@ -59,7 +59,10 @@ export default {
       this.$socket.on('test', (data) => {
         console.log(data);
         this.spinning = false;
-        window.open(`api/downloadFile/${data}`, '_self');
+        const timer = setTimeout(() => {
+          clearTimeout(timer);
+          window.open(`http://192.168.5.31:3000/api/downloadFile/${data}`, '_self');
+        }, 6000);
       });
     },
   },
