@@ -61,7 +61,7 @@ export default {
         this.spinning = false;
         const timer = setTimeout(() => {
           clearTimeout(timer);
-          window.open(`http://192.168.5.31:3000/api/downloadFile/${data}`, '_self');
+          window.open(`http://timnie.cn/api/downloadFile/${data}`, '_self');
         }, 6000);
       });
     },
