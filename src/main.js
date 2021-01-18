@@ -15,7 +15,7 @@ import './filters/filter';
 import '@/assets/css/normalize.css';
 import '@/assets/css/base.scss';
 
-Vue.prototype.$socket = io('http://192.168.5.31:3000');
+Vue.prototype.$socket = io('http://timnie.cn');
 Vue.prototype.$message = message;
 Vue.prototype.$moment = moment;
 Vue.config.productionTip = false;
